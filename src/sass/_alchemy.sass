@@ -1,0 +1,128 @@
+
+$white: #fff
+$green: #6afa8a
+$blue: #87e0ff
+$pink: #ffafd1
+$orange: #f8a044
+
+$white-min: #fcfcff
+$grey-light: #dedede
+$grey: #888
+$grey-dark: #2e2e2e
+$navy-light: #a1decb
+$theme: #1c1d22
+$cancel: #ffafd1
+$ok: $blue
+$good: $green
+
+$shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12)
+$shadow-lite: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 4px 5px 0 rgba(0, 0, 0, .07), 0 1px 10px 0 rgba(0, 0, 0, .06)
+
+// RGB 28, 29, 34
+$theme-color: $theme
+$complementer-color: $navy-light
+
+$sidebar-bg-color: lighten($theme,8%)
+$sidebar-logo-bg-color: darken($theme,8%)
+$sidebar-icon-bg-color: $theme
+$sidebar-text-color: lighten($theme,50%)
+$sidebar-subtext-color: lighten($theme,18%)
+
+    
+// transitions & styling
+$browsers: '', '-moz-', '-webkit-', '-ms-'
+
+$button-height: 32px
+$button-side-padding: 16px
+$button-colors: ('green': $green, 'ok':$theme, 'blue': $blue, 'pink': $pink)
+=createbutton ($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding)
+    .button
+        display: $display
+        height: $button-height
+        line-height: $button-height
+        padding: 0 $button-side-padding
+        cursor: pointer
+        &.#{$name}
+            background-color: $button-color
+            color: $button-text-color
+=createbuttons ($button-text-color: $grey-dark)
+    @each $name, $button-color in $button-colors
+        +createbutton ($name, $button-color, $button-text-color)
++createbuttons
+
+=transitions ($sec, $type: all, $accel: ease)
+	@each $browser in $browsers
+		#{$browser}transition: $type $sec $accel
+
+=borderradius ($radius: 50%)
+	@each $browser in $browsers
+		#{$browser}border-radius: $radius
+
+=boxsizing ($type: border-box)
+	@each $browser in $browsers
+		#{$browser}box-sizing: $type
+
+=shadow($color: $shadow-lite)
+	@each $browser in $browsers
+		#{$browser}box-shadow: $color
+
+// not supported by Chrome
+// =columns ($columns: 4, $gap: 16px)
+// 	@each $browser in $browsers
+// 		#{$browser}column-count: $columns
+// 		#{$browser}column-gap: $gap
+=clearfix
+	content: ""
+	display: block
+	clear: both
+=dimension($width, $height, $lineheight: $height, $align: "center")
+	width: $width
+	height: $height
+	line-height: $lineheight !important
+	text-align: $align
+// set base container
+// responsive setting
+$responsive: true
+=container($container-width: $width)
+	// set container width if responsive, else if not
+	@if $responsive == true
+		max-width: $container-width
+	@else
+		width: $container-width
+	margin: 0px auto
+=materialicons
+	text-align: center
+	font-family: 'Material Icons'
+	font-weight: normal
+	font-style: normal
+	line-height: 1
+	letter-spacing: normal
+	text-transform: none
+	white-space: nowrap
+	word-wrap: normal
+	direction: ltr
+	-moz-font-feature-settings: 'liga'
+	-moz-osx-font-smoothing: grayscale
+i
+	+materialicons
+	+transitions(.3s)
+
+// used inside a relative div
+=absolutecenter
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	margin: auto
+=shade($all: 1px, $left-bottom: 2px, $color: $grey)
+	border: $all solid $grey
+	border-right-width: $left-bottom
+	border-bottom-width: $left-bottom
+
+@mixin squareicon ($size)
+	width: $size
+	height: $size
+	line-height: $size
+	text-align: center
+

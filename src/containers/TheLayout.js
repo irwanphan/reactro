@@ -1,10 +1,10 @@
 const TheLayout = () => {
-
     return (
-      <div>
-          header
-      </div>
+        <header>
+            header
+            <span className="button ok">asdf</span>
+        </header>
     )
-  }
+}
   
   export default TheLayout
