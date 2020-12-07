@@ -15,8 +15,8 @@ $cancel: #ffafd1
 $ok: $blue
 $good: $green
 
-$shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12)
-$shadow-lite: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 4px 5px 0 rgba(0, 0, 0, .07), 0 1px 10px 0 rgba(0, 0, 0, .06)
+// $shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12)
+// $shadow-lite: 0 2px 4px -1px rgba(0, 0, 0, .1), 0 4px 5px 0 rgba(0, 0, 0, .07), 0 1px 10px 0 rgba(0, 0, 0, .06)
 
 // RGB 28, 29, 34
 $theme-color: $theme
@@ -28,27 +28,9 @@ $sidebar-icon-bg-color: $theme
 $sidebar-text-color: lighten($theme,50%)
 $sidebar-subtext-color: lighten($theme,18%)
 
-    
+	
 // transitions & styling
 $browsers: '', '-moz-', '-webkit-', '-ms-'
-
-$button-height: 32px
-$button-side-padding: 16px
-$button-colors: ('green': $green, 'ok':$theme, 'blue': $blue, 'pink': $pink)
-=createbutton ($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding)
-    .button
-        display: $display
-        height: $button-height
-        line-height: $button-height
-        padding: 0 $button-side-padding
-        cursor: pointer
-        &.#{$name}
-            background-color: $button-color
-            color: $button-text-color
-=createbuttons ($button-text-color: $grey-dark)
-    @each $name, $button-color in $button-colors
-        +createbutton ($name, $button-color, $button-text-color)
-+createbuttons
 
 =transitions ($sec, $type: all, $accel: ease)
 	@each $browser in $browsers
@@ -62,9 +44,34 @@ $button-colors: ('green': $green, 'ok':$theme, 'blue': $blue, 'pink': $pink)
 	@each $browser in $browsers
 		#{$browser}box-sizing: $type
 
-=shadow($color: $shadow-lite)
+$box-shadow-default-position: 0px 8px 15px
+=color-opacity($color, $opacity: 0.18)
+	rgba($color, $opacity)
+
+=dropshadow($color, $position: $box-shadow-default-position)
 	@each $browser in $browsers
-		#{$browser}box-shadow: $color
+		#{$browser}box-shadow: $position $color-opacity
+
+$button-height: 32px
+$button-side-padding: 16px
+$button-colors: ('green': $green, 'ok':$theme, 'blue': $blue, 'pink': $pink)
+=createbutton ($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding, $class-name: 'button')
+	.#{$class-name}
+		display: $display
+		height: $button-height
+		line-height: $button-height
+		padding: 0 $button-side-padding
+		cursor: pointer
+		// +dropshadow($button-color)
+		&.#{$name}
+			background-color: $button-color
+			color: $button-text-color
+=createbuttons ($button-text-color: $grey-dark)
+	@each $name, $button-color in $button-colors
+		+createbutton ($name, $button-color, $button-text-color)
++createbuttons
+
+
 
 // not supported by Chrome
 // =columns ($columns: 4, $gap: 16px)
