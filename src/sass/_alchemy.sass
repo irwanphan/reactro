@@ -54,19 +54,29 @@ $box-shadow-default-position: 0px 8px 15px
 		#{$browser}box-shadow: $position coloropacity($color, $opacity)
 
 $button-height: 32px
+$button-border-radius: 8px
 $button-side-padding: 16px
 $button-colors: ('green': $green, 'ok':$green, 'blue': $blue, 'pink': $pink)
-=createbutton($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding, $class-name: 'button')
+=createbutton($name, $button-color, $button-text-color, $border: 'bordered', $display: inline-block, $height: $button-height, $side-padding: $button-side-padding, $radius: $button-border-radius, $class-name: 'button')
 	.#{$class-name}
 		display: $display
 		height: $button-height
 		line-height: $button-height
 		padding: 0 $button-side-padding
 		cursor: pointer
+		+transitions(.3s)
+		+borderradius($radius)
+		@if $border == 'bordered'
+			border-style: solid
+			border-width: 1px 1px 2px 1px
+			border-color: $grey-dark
 		&.#{$name}
 			background-color: $button-color
 			color: $button-text-color
 			+dropshadow($button-color, 0.28)
+			&:hover, &:focus, &:active
+				background-color: darken($button-color, 15%)
+				+dropshadow($button-color, 0.88)
 =createbuttons ($button-text-color: $grey-dark)
 	@each $name, $button-color in $button-colors
 		+createbutton($name, $button-color, $button-text-color)
