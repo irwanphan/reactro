@@ -32,15 +32,15 @@ $sidebar-subtext-color: lighten($theme,18%)
 // transitions & styling
 $browsers: '', '-moz-', '-webkit-', '-ms-'
 
-=transitions ($sec, $type: all, $accel: ease)
+=transitions($sec, $type: all, $accel: ease)
 	@each $browser in $browsers
 		#{$browser}transition: $type $sec $accel
 
-=borderradius ($radius: 50%)
+=borderradius($radius: 50%)
 	@each $browser in $browsers
 		#{$browser}border-radius: $radius
 
-=boxsizing ($type: border-box)
+=boxsizing($type: border-box)
 	@each $browser in $browsers
 		#{$browser}box-sizing: $type
 
@@ -56,20 +56,20 @@ $box-shadow-default-position: 0px 8px 15px
 $button-height: 32px
 $button-side-padding: 16px
 $button-colors: ('green': $green, 'ok':$green, 'blue': $blue, 'pink': $pink)
-=createbutton ($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding, $class-name: 'button')
+=createbutton($name, $button-color, $button-text-color, $display: inline-block, $height: $button-height, $side-padding: $button-side-padding, $class-name: 'button')
 	.#{$class-name}
 		display: $display
 		height: $button-height
 		line-height: $button-height
 		padding: 0 $button-side-padding
 		cursor: pointer
-		+dropshadow($button-color, 1)
 		&.#{$name}
 			background-color: $button-color
 			color: $button-text-color
+			+dropshadow($button-color, 0.28)
 =createbuttons ($button-text-color: $grey-dark)
 	@each $name, $button-color in $button-colors
-		+createbutton ($name, $button-color, $button-text-color)
+		+createbutton($name, $button-color, $button-text-color)
 +createbuttons
 
 
